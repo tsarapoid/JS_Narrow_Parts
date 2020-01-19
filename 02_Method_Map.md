@@ -1,4 +1,14 @@
-[Относительная ссылка на документ](./00_JS_narrow_parts.md)
+# [Method Map](https://www.youtube.com/watch?v=WCYy8jpp7R8)
+
+
+
+
+
+Источником кода в этом примере явились видео про то, [как взломать Пентагон](https://www.youtube.com/watch?v=W_UiFnsRoFA) из [Archakov Blog](https://www.youtube.com/channel/UCdldbhAwO16vjnDwACTs5gQ) и соответствующая [статья](https://archakov.im/post/horoshij-plohoj-zloj-sposob-projti-zadanie-ot-tjournal-al-fabank.html). В рассматриваемом алгоритме происходит следующее:
+
+
+
+
 
 
 
@@ -25,7 +35,7 @@ let values = Array.prototype.map.call(elems, function(obj) {
 
 map chaining
 
-```jsx
+```js
 const App = (users) => {
   return (
     <ul>
@@ -73,8 +83,19 @@ https://raddevon.com/articles/cant-use-parseint-map-javascript/
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 
+```js
 ["1", "7", "11","12"].map((n,l) => parseInt(n*100+l));
 ["1", "7", "11","12"].map(Number);
+```
+
+
+
+```js
+console.log(['1', '7', '11'].map(parseInt));
+console.log(['1', '7', '11'].map(Number));
+```
+
+
 
 
 
@@ -123,11 +144,6 @@ function duplicateSpreadsheet(original) {
 
 
 
+------
 
-
-
-
-
-
-
-
+#### [JS узкие части](./README.md)
