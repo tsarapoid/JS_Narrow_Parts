@@ -25,7 +25,7 @@ let values = Array.prototype.map.call(elems, function(obj) {
 
 map chaining
 
-```js
+```jsx
 const App = (users) => {
   return (
     <ul>
@@ -129,6 +129,23 @@ function duplicateSpreadsheet(original) {
 | ------------------------------------------------------------ |
 | Missing bugs like this is something that happens to every programmer, every  day. But now that you know a bug exists, will you read the code  differently? If you’ve been reading code in the “fast” mode, it’s likely you’ll switch to the more laborious “slow” mode to find it. |
 | In the “fast” mode, we guess what the code does based on naming, comments, and its overall structure. In the “slow” mode, we retrace what the code does step by step. |
+
+
+
+
+
+https://medium.com/javascript-in-plain-english/please-stop-using-classes-in-javascript-and-become-a-better-developer-a185c9fbede1
+
+
+
+```js
+function iAmAnObject() {}
+
+console.log(iAmAnObject.name); // iAmAnObject
+console.log(Object.keys(iAmAnObject)); // Array []
+```
+
+
 
 
 
