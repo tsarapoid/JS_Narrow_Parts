@@ -1,67 +1,14 @@
-#### 
-
-
-
-### Using `map` generically `querySelectorAll`
-
-samer buna
-
-
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+# Заголовок
 
 
 
 
 
-```js
-let elems = document.querySelectorAll('select option:checked')
-let values = Array.prototype.map.call(elems, function(obj) {
-  return obj.value
-})
-```
 
 
 
-map chaining
-
-```jsx
-const App = (users) => {
-  return (
-    <ul>
-      {users
-        .map((u) => u.name)
-        .map((name) => (
-          <li>My name is {name}!</li>
-        ))}
-    </ul>
-  );
-};
-```
-
-Tremendously useful. Most of your main components will probably use `map`.
-
-https://yazeedb.com/posts/array-map-explained-in-4-levels-of-difficulty
 
 
-
-var scope strict mode
-
-
-
-```js
-function strict() {
-  'use strict';
-  function nested() { return 'And so am I!' }
-  return "Hi!  I'm a strict mode function!  " + nested()
-}
-
-function notStrict() { return "I'm not strict." }
-
-console.log(strict());
-console.log(nested());
-console.log(notStrict());
-```
 
 
 
@@ -86,6 +33,30 @@ console.log(['1', '7', '11'].map(Number));
 ```
 
 
+
+
+
+
+
+
+
+var scope strict mode
+
+
+
+```js
+function strict() {
+  'use strict';
+  function nested() { return 'And so am I!' }
+  return "Hi!  I'm a strict mode function!  " + nested()
+}
+
+function notStrict() { return "I'm not strict." }
+
+console.log(strict());
+console.log(nested());
+console.log(notStrict());
+```
 
 
 

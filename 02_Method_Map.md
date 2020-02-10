@@ -1,148 +1,91 @@
 # [Method Map](https://www.youtube.com/watch?v=WCYy8jpp7R8)
 
-
-
-
-
-Источником кода в этом примере явились видео про то, [как взломать Пентагон](https://www.youtube.com/watch?v=W_UiFnsRoFA) из [Archakov Blog](https://www.youtube.com/channel/UCdldbhAwO16vjnDwACTs5gQ) и соответствующая [статья](https://archakov.im/post/horoshij-plohoj-zloj-sposob-projti-zadanie-ot-tjournal-al-fabank.html). В рассматриваемом алгоритме происходит следующее:
-
-
-
-
-
-
-
-### Using `map` generically `querySelectorAll`
-
-samer buna
-
-
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-
-
-
-
+Современным способом принять все (или оставшиеся) аргументы функции в массив является применение [остальных параметров](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Functions/Rest_parameters) или `rest parameters`, которые были приняты в стандарте ES6. Допустим, мы хотим найти сумму произвольного количества чисел, передаваемых функции как аргументы, для этого мы можем использовать код ниже:
 
 ```js
-let elems = document.querySelectorAll('select option:checked')
-let values = Array.prototype.map.call(elems, function(obj) {
-  return obj.value
-})
+function addArgs1(...theArgs) {
+	let sum = 0;
+	theArgs.map(arg => (sum += arg));
+	return sum
+}
+console.log(addArgs1(1,2,3,4));
+console.log(addArgs1(1,2,3,4,5,6,7,8));
 ```
 
-
-
-map chaining
+В своей [лабораторной](https://jscomplete.com/learn/lab-functions-args) по аргументам функций `Samer Buna` отмечает, что другим способом, пригодным для ES5 является применение встроенного объекта функции [`arguments`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Functions/arguments). В данном случае прямое применение метода массива [`Array.map`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/map) невозможно, так как `arguments` является скорее объектом, поэтому посредством [`prototype.call`](http://adripofjavascript.com/blog/drips/invoking-javascript-functions-with-call-and-apply.html) мы добавляем объекту новый метод:
 
 ```js
+function addArgs2() {
+	let sum = 0;
+	Array.prototype.map.call(arguments, arg => (sum += arg));
+	return sum;
+}
+console.log(addArgs2(5,6,7,8));
+console.log(addArgs2(1,2,3,4,5,6,7,8));
+```
+
+Использование метода массива [`Array.from`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/from) является еще одним способом преобразования объекта `arguments` в массив:
+
+```js
+function addArgs3() {
+	let sum = 0;
+  Array.from(arguments).map(arg => (sum += arg));
+  return sum;
+}
+console.log(addArgs3(1,2,3,4));
+console.log(addArgs3(1,2,3,4,5,6,7,8));
+```
+
+Примечательно, что метод `Array.map` может использоваться также и для строковых преобразований. В следующем примере мы обращаем строку с помощью метода `map`. Имейте в виду, что нотация `[]` фактически [равнозначна](https://2ality.com/2011/08/array-prototype-performance.html) прототипу массива `Array.prototype`:
+
+```js
+function reverseString1(string) {
+	return [].map.call(string, (symb) => symb).reverse().join('');
+}
+console.log(reverseString1("ababcdcd"));
+```
+
+Более простым способом обращения строки в данном случае является использование метода строки [`split`](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/String/split):
+
+```js
+function reverseString2(string) {
+	return string.split('').reverse().join('');
+}
+console.log(reverseString2("ababcdcd"));
+```
+
+Еще одной важной [особенностью](https://yazeedb.com/posts/array-map-explained-in-4-levels-of-difficulty#to-a-react-developer) метода массивов `map` является то, что его можно использовать в цепи методов, как например [генерирование](https://codesandbox.io/s/map-method-chain-7if2q) элементов списка в библиотеке `React`:
+
+```jsx
+users = [
+  {
+    name: 'Bruce Wayne',
+    location: 'Gotham City',
+    heroName: 'Batman'
+  },
+  {
+    name: 'Barry Allen',
+    location: 'Central City',
+    heroName: 'The Flash'
+  },
+  {
+    name: 'Clark Kent',
+    location: 'Kryptonopolis',
+    heroName: 'Superman'
+  }
+];
+
 const App = (users) => {
   return (
     <ul>
       {users
-        .map((u) => u.name)
-        .map((name) => (
-          <li>My name is {name}!</li>
-        ))}
+        .map(user => user.name)
+      	.map(name => <li>My name is {name}!</li>)
+      }
     </ul>
   );
 };
 ```
-
-Tremendously useful. Most of your main components will probably use `map`.
-
-https://yazeedb.com/posts/array-map-explained-in-4-levels-of-difficulty
-
-
-
-var scope strict mode
-
-
-
-```js
-function strict() {
-  'use strict';
-  function nested() { return 'And so am I!' }
-  return "Hi!  I'm a strict mode function!  " + nested()
-}
-
-function notStrict() { return "I'm not strict." }
-
-console.log(strict());
-console.log(nested());
-console.log(notStrict());
-```
-
-
-
-parseInt
-
-http://www.wirfs-brock.com/allen/posts/166
-
-https://raddevon.com/articles/cant-use-parseint-map-javascript/
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-
-```js
-["1", "7", "11","12"].map((n,l) => parseInt(n*100+l));
-["1", "7", "11","12"].map(Number);
-```
-
-
-
-```js
-console.log(['1', '7', '11'].map(parseInt));
-console.log(['1', '7', '11'].map(Number));
-```
-
-
-
-
-
-destructuring
-
-https://www.sitepoint.com/es6-destructuring-assignment/
-
-
-
-Because using the “slow” system is so mentally draining, we tend to default to the “fast” one — even when dealing with intellectual tasks like coding.
-
-Imagine that you’re in the middle of a lot of work, and you want to  quickly identify what this function does. Take a quick look at it:
-
-```javascript
-function duplicateSpreadsheet(original) {
-  if (original.hasPendingChanges) {
-    throw new Error('You need to save the file before you can duplicate it.');
-  }
-  let copy = {
-    created: Date.now(),
-    author: original.author,
-    cells: original.cells,
-    metadata: original.metadata,
-  };
-  copy.metadata.title = 'Copy of ' + original.metadata.title;
-  return copy;
-}
-```
-
-
-
-
-
-| You’ve probably noticed that:                                |
-| ------------------------------------------------------------ |
-| This function duplicates a spreadsheet. It throws an error if the original spreadsheet isn’t saved. It prepends “Copy of” to the new spreadsheet’s title. |
-
-
-
-| What you might *not* have noticed (great job if you did though!) is that this function *also* accidentally changes the title of the original spreadsheet. |
-| ------------------------------------------------------------ |
-| Missing bugs like this is something that happens to every programmer, every  day. But now that you know a bug exists, will you read the code  differently? If you’ve been reading code in the “fast” mode, it’s likely you’ll switch to the more laborious “slow” mode to find it. |
-| In the “fast” mode, we guess what the code does based on naming, comments, and its overall structure. In the “slow” mode, we retrace what the code does step by step. |
-
-
-
-
 
 ------
 

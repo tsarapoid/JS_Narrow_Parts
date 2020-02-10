@@ -37,6 +37,6 @@
 
 [Шифр Виженера](./01_Chiffre_de_Vigenère.md)
 
-[Obj.Call](./02_temp.md)
+[Method Map](./02_Method_Map.md)
 
 
