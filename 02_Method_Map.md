@@ -1,6 +1,6 @@
 # [Method Map](https://www.youtube.com/watch?v=WCYy8jpp7R8)
 
-Современным способом принять все (или оставшиеся) аргументы функции в массив является применение [остальных параметров](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Functions/Rest_parameters) или `rest parameters`, которые были приняты в стандарте ES6. Допустим, мы хотим найти сумму произвольного количества чисел, передаваемых функции как аргументы, для этого мы можем использовать код ниже:
+Современным способом принять все (или оставшиеся) аргументы функции в массив является применение `rest parameters` или [остальных параметров](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Functions/Rest_parameters), которые были приняты в стандарте ES6. Допустим, мы хотим найти сумму произвольного количества чисел, передаваемых функции как аргументы, для этого мы можем использовать код ниже:
 
 ```js
 function addArgs1(...theArgs) {
@@ -40,7 +40,7 @@ console.log(addArgs3(1,2,3,4,5,6,7,8));
 
 ```js
 function reverseString1(string) {
-	return [].map.call(string, (symb) => symb).reverse().join('');
+	return [].map.call(string, symb => symb).reverse().join('');
 }
 console.log(reverseString1("ababcdcd"));
 ```
@@ -87,6 +87,12 @@ const App = (users) => {
 };
 ```
 
-------
 
-#### [JS узкие части](./README.md)
+
+# Содержание разделов
+
+[Как изучать JavaScript](./README.md)
+
+[Шифр Виженера](./01_Chiffre_de_Vigenère.md)
+
+[Method Map](./02_Method_Map.md)
